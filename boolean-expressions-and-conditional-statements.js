@@ -28,16 +28,35 @@ const readline = require('readline-sync');
 
 const hasTorch = true;
 const hasMap = false;
+const hasSword = false;
+const hasCompass = true;
 
 console.log("You see two paths: one leads to the mountains, the other to the village.");
+console.log("You also notice some items nearby: a torch, a map, a sword and a compass.");
 const choice = readline.question("Do you go to the 'mountains' or the 'village'?");
 
 if (choice === "mountains" && hasTorch) {
   console.log("You safely navigate through the dark mountains.");
+  const secondChoice = readline.question("You come across a wild animal. Do you use your 'sword' or 'run'?");
+  if (secondChoice === "sword" && hasSword) {
+    console.log("You fight the animal and win!");
+  } else if (secondChoice === "run") {
+    console.log("You manage to run away, but you are exhausted.");
+  } else {
+    console.log("You don't have a sword, so you can't fight. You run away.");
+  }
 } else if (choice === "mountains" && !hasTorch) {
   console.log("It's too dark to proceed. You decide to turn back.");
 } else if (choice === "village" || hasMap) {
   console.log("You find your way to the village.");
+  const villageChoice = readline.question("In the village, you meet a merchant. Do you buy a potion or leave?");
+  if (villageChoice === "potion") {
+    console.log("You buy a potion. You might need it later.");
+  } else {
+    console.log("You leave the village empty handed.");
+  }
+} else if (choice === "village" && !hasMap) {
+  console.log("Without a map, you get lost on your way to the village.");
 } else {
   console.log("You get lost and wander aimlessly.");
 }
